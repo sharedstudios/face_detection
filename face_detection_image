@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+from mtcnn import MTCNN
+
+def detect_heads_in_image(image_path):
+    # Initialize MTCNN for face detection
+    detector = MTCNN()
+
+    # Read the image
+    image = cv2.imread(image_path)
+    if image is None:
+        raise FileNotFoundError(f"Error: Unable to load the image at {image_path}.")
+
+    # Convert the image to RGB (required for MTCNN)
+    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Detect faces
+    results = detector.detect_faces(rgb_image)
+
+    # Count the number of faces detected with high confidence
+    count = 0
+    for result in results:
+        confidence = result['confidence']  # Model confidence
+        if confidence > 0.9:  # confidence is between 0 and 1
+            count += 1
+    return count
+
+# Example usage
+image_path = 'path_to_image.jpg'
+try:
+    num_heads = detect_heads_in_image(image_path)
+    print(f"Number of heads detected: {num_heads}")
+except FileNotFoundError as e:
+    print(e)
