@@ -4,7 +4,7 @@ This script, face_detection_image.py, uses MTCNN (Multi-task Cascaded Convolutio
 
 Input
 
-	•	The script accepts an input image in PNG format.
+	•	The script accepts an input image in PNG/JPG format.
 
 Output
 
